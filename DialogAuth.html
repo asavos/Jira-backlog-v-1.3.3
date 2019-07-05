@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= HtmlService.createHtmlOutputFromFile('DialogCss').getContent(); ?>
+  </head>
+  <body>
+    <!-- Below is the HTML code that defines the dialog element structure. -->
+    <div class="dialog-body">
+      <div id="dialog-form-auth">
+        <div class="block" id="dialog-elements-auth">     
+          <div class="form-group">
+             <label for="dialog-user">Username:</label>
+             <input id="dialog-user" class="form-control" type="text" />        
+          </div>
+      
+          <div class="form-group">
+            <label for="dialog-password">Password:</label>
+            <input class="form-control" type="password" id="dialog-password" />          
+          </div>   
+        </div>
+        <div class="block text-right" id="dialog-button-bar">
+          <button class="btn btn-outline-secondary" id="dialog-cancel-button-auth" onclick="google.script.host.close()">Cancel</button>
+          <button class="action btn btn-success btn-outlined" id="dialog-execute-button-auth">Set Auth data</button>
+        </div>
+      </div>
+      <div style="display: none;" id="dialog-loading-auth">
+        Preparing sheet...
+      </div>
+    </div>
+    <?!= HtmlService.createHtmlOutputFromFile('DialogJSAuth').getContent(); ?>
+  </body>
+</html>

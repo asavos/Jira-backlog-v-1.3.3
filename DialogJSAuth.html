@@ -1,0 +1,50 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+  $(function() {
+    $('#dialog-execute-button-auth').click(onExecuteClickAuth);
+    
+    window.closeDialog = function() {
+      google.script.host.close();
+    };
+  });
+  
+  function onExecuteClickAuth() {
+    var data = {
+      username: $("#dialog-user").val(),
+      password: $("#dialog-password").val(),
+    };
+    
+    //PropertiesService.getScriptProperties().setProperty('usname', data.username);
+    
+    if (!validate()) {
+       alert("All fields required!");
+       return;
+    }
+
+    showLoading();
+    google.script.run
+        .withUserObject(this)
+        .withSuccessHandler(window.closeDialog)
+        .withFailureHandler(
+          function(msg, element) {
+            alert(msg);
+          })
+        .setCredentials(data);
+        
+    function validate() {
+      return !isNullOrEmpty(data.username) && !isNullOrEmpty(data.password);
+    }
+    
+    function isNullOrEmpty(str) {
+      return str == null || str.length === 0;
+    }
+    
+    function showLoading() {
+      $("#dialog-form-auth").hide();
+      $("#dialog-loading-auth").show();
+    }
+  }
+  
+
+
+</script>

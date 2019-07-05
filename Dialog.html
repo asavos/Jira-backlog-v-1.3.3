@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= HtmlService.createHtmlOutputFromFile('DialogCss').getContent(); ?>
+  </head>
+  <body>
+    <!-- Below is the HTML code that defines the dialog element structure. -->
+    <div class="dialog-body">
+      <div id="dialog-form">
+        <div class="block" id="dialog-elements">
+          <div class="form-group">
+            <label for="dialog-project">Project:</label>
+            <input class="form-control" type="text" id="dialog-project" />  
+          </div>   
+      
+          <div class="form-group">
+            <label for="dialog-date-start">Start Date: YYYY-MM-DD:</label>
+            <input class="form-control" type="text" id="dialog-date-start" />
+          </div>
+          
+          <div class="form-group">
+            <label for="dialog-date-end">End Date: YYYY-MM-DD:</label>
+            <input class="form-control" type="text" id="dialog-date-end" />
+          </div>  
+        </div>
+        <div class="block text-right" id="dialog-button-bar">
+          <button class="btn btn-outline-secondary" id="dialog-cancel-button" onclick="google.script.host.close()">Cancel</button>
+          <button class="action btn btn-success btn-outlined" id="dialog-execute-button">Execute</button>
+        </div>
+      </div>
+      <div style="display: none;" id="dialog-loading">
+        Preparing sheet...
+      </div>
+    </div>
+    <?!= HtmlService.createHtmlOutputFromFile('DialogJS').getContent(); ?>
+  </body>
+</html>

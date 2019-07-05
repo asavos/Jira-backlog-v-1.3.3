@@ -1,0 +1,51 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+  $(function() {
+  
+   //console.log("log 1 ", PropertiesService.getScriptProperties().getProperty('usname'););
+    
+    $('#dialog-execute-button').click(onExecuteClick);
+
+    window.closeDialog = function() {
+      google.script.host.close();
+    };
+  });
+  
+  function onExecuteClick() {
+    var data = {
+      project: $("#dialog-project").val(),
+      dateStart: $("#dialog-date-start").val(),
+      dateEnd: $("#dialog-date-end").val()
+    };
+    
+    if (!validate()) {
+       alert("All fields required!");
+       return;
+    }
+
+    showLoading();
+    google.script.run
+        .withUserObject(this)
+        .withSuccessHandler(window.closeDialog)
+        .withFailureHandler(
+          function(msg, element) {
+            alert(msg);
+          })
+        .prepareSheet(data);
+        
+    function validate() {
+      return !isNullOrEmpty(data.project) && !isNullOrEmpty(data.dateStart) && !isNullOrEmpty(data.dateEnd);
+    }
+    
+    function isNullOrEmpty(str) {
+      return str == null || str.length === 0;
+    }
+    
+    function showLoading() {
+      $("#dialog-form").hide();
+      $("#dialog-loading").show();
+    }
+   
+  }
+
+</script>
